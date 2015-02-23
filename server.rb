@@ -17,3 +17,9 @@ get '/' do
   @users = users
   erb :index
 end
+
+post '/add' do
+  p params
+  @conn.exec('INSERT INTO authors (name) values ($1)', [params[:name]])
+  redirect '/'
+end
