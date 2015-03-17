@@ -11,7 +11,8 @@ get '/' do
   users = []
   @conn.exec("SELECT * FROM authors") do |result|
     result.each do |row|
-      users << row
+      p row
+      users << row["name"]
     end
   end
   @users = users
@@ -19,7 +20,6 @@ get '/' do
 end
 
 post '/add' do
-  p params
   @conn.exec('INSERT INTO authors (name) values ($1)', [params[:name]])
   redirect '/'
 end
